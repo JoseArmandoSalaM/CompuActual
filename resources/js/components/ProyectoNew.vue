@@ -1,4 +1,30 @@
 <template>
+    <!-- The Modal -->
+    <div class="modal " :class="{ 'mostrar': modalShowMsg }">
+        <div class="modal-dialog  modal-dialog-centered modal-sm">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">CompuActual dice: </h4>
+                    <button type="button" class="close" @click="closeModalMsg">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Se han guardado los registros
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" @click="closeModalMsg">
+                        Vale
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row text-center">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -105,7 +131,7 @@
                                 required></textarea>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="inputState">Tipo de servicio</label>
                                 <select id="inputState" class="form-control" v-model="proyecto.tipoServicio">
                                     <option value="Hardware" selected>Hardware</option>
@@ -114,7 +140,17 @@
                                 </select>
 
                             </div>
-
+                            <div class="form-group col-md-4">
+                                <label for="inputEmail4">Costo aproximado</label>
+                                <input type="number" class="form-control" id="costoAprox" name="costoAprox"
+                                    v-model="proyecto.costoAprox" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputPassword4">Dinero acuenta</label>
+                                <input type="number" class="form-control" id="acuenta" name="acuanta"
+                                    v-model="proyecto.dineroAcuenta" required>
+                            </div>
+                            <!--
                             <div class="form-group col-md-6 text-center">
                                 <label for="inputCity">Require respaldo</label>
                                 <br>
@@ -133,27 +169,18 @@
                                     </label>
                                 </div>
                             </div>
+                            -->
                         </div>
-                        <transition name="fade">
+                        <!--                        <transition name="fade">
                             <div class="form-group" v-show="proyecto.requiereRespado === 'si'">
                                 <label for="inputAddress2">Rutas de las carpetas a respaldar </label>
                                 <textarea class="form-control" id="exampleTextarea" rows="4"
                                     v-model="proyecto.rutas"></textarea>
                             </div>
                         </transition>
+                    -->
 
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Costo aproximado</label>
-                                <input type="number" class="form-control" id="costoAprox" name="costoAprox"
-                                    v-model="proyecto.costoAprox" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Dinero acuenta</label>
-                                <input type="number" class="form-control" id="acuenta" name="acuanta"
-                                    v-model="proyecto.dineroAcuenta" required>
-                            </div>
-                        </div>
+
                         <div class="row m-4">
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-8 d-grid gap-2">
@@ -173,6 +200,7 @@
 export default {
     data() {
         return {
+            modalShowMsg: 0,
             clientes: [],
             folio: "",
             requiereRespado: 'si',
@@ -185,7 +213,7 @@ export default {
                 decripcion: '',
                 caractPosibles: '',
                 tipoServicio: 'Hardware',
-                requiereRespado: 'si',
+                requiereRespado: 'no',
                 rutas: '',
                 costoAprox: 0,
                 dineroAcuenta: 0,
@@ -199,6 +227,25 @@ export default {
 
 
     methods: {
+        closeModalMsg() {
+            this.modalShowMsg = 0
+            
+        },
+        limpiar() {
+            this.proyecto.costoAprox = 0
+            this.proyecto.idCliente = ""
+            this.proyecto.equipo = ""
+            this.proyecto.modelo = ""
+            this.proyecto.decripcion = ""
+            this.proyecto.caractPosibles = ""
+            this.proyecto.tipoServicio = "Hardware"
+            this.proyecto.requiereRespado = "no"
+            this.proyecto.rutas = " "
+            this.proyecto.dineroAcuenta = 0;
+
+
+        },
+
         cargar() {
             axios.get('/cliente/listado').then(res => {
                 this.clientes = res.data;
@@ -213,8 +260,10 @@ export default {
             const proyecoNuevo = this.proyecto;
             axios.post('/proyecto', proyecoNuevo)
                 .then((res) => {
-                    //console.log(res.data);
+                    console.log(res.data);
                     this.cargar()
+                    this.limpiar()
+                    this.modalShowMsg = 1
                 })
         },
 
@@ -242,5 +291,11 @@ export default {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
+}
+
+.mostrar {
+    display: list-item;
+    opacity: 1;
+    background: rgba(44, 38, 75, 0.849);
 }
 </style>

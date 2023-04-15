@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title','Nuevo proyecto')
+@section('template_title')
+    Autorizacion
+@endsection
 
 @section('content')
     <div class="row">

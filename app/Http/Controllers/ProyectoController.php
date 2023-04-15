@@ -195,6 +195,9 @@ class ProyectoController extends Controller
             case 3:
                 return view('seguimientos.index', compact('proyecto'));
                 break;
+            case 4:
+                return view('seguimientos.subir', compact('proyecto'));
+                break;
             
             default:
                 # code...
@@ -232,7 +235,7 @@ class ProyectoController extends Controller
     }
 
     
-    public function cambiarEtapa(Request $request)
+    public function cambiarEtapaApi(Request $request)
     {
         $id = $request->id;
         $proyecto = Proyecto::findOrFail($id);
@@ -242,6 +245,18 @@ class ProyectoController extends Controller
         $proyecto->etapa_id = $nuevaEtapa;
         $proyecto->save();
         return $proyecto;
+    }
+
+    public function cambiarEtapa(Request $request)
+    {
+        $id = $request->id;
+        $proyecto = Proyecto::findOrFail($id);
+        $etapa = $proyecto->etapa->id;
+        //var_dump($etapa) ; die;
+        $nuevaEtapa = $etapa + 1;
+        $proyecto->etapa_id = $nuevaEtapa;
+        $proyecto->save();
+        return redirect()->route('mis_proyectos');
     }
 
     public function verProyecto(Request $request)

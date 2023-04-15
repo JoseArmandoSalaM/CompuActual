@@ -47,6 +47,11 @@ class Proyecto extends Model
         return $this->belongsTo(etapas::class);
     }
 
+    public function reparaciones()
+    {
+       // return $this->hasMany(User::class,'id');
+        return $this->hasMany(Reparacion::class);
+    }
 
 
     public function cliente()

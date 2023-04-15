@@ -8,6 +8,7 @@ use App\Http\Controllers\DiagnosticoController;
 use App\Http\Controllers\HallazgoController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\AutorizacionController;
+use App\Http\Controllers\ReparacionController;
 
 
 /*
@@ -29,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Para ver el proyecto
 Route::get('/proyecto/{id}', [ProyectoController::class,'verProyecto']);
-Route::post('/proyecto/cambiarEtapa', [ProyectoController::class, 'cambiarEtapa']);
+Route::post('/proyecto/cambiarEtapa', [ProyectoController::class, 'cambiarEtapaApi']);
 
 
 //Rutas para acualizar las caracteristicas del equipo
@@ -53,10 +54,15 @@ Route::post('diagnostico/',[DiagnosticoController::class,'store']);
 Route::post('diagnostico/{id}',[DiagnosticoController::class,'update']);
 // --- Ruta para obtener imagen del diagnostico
 Route::get('diagnostico/image/{filename}',[DiagnosticoController::class,'getImage']);
+// --- Ruta para obtener imagen de las reparaciones
+Route::get('reparacion/image/{filename}',[ReparacionController::class,'getImage']);
 
 Route::post('/autorizacion', [AutorizacionController::class,'store']);
 Route::get('/autorizacion/{id}', [AutorizacionController::class,'index']);
 Route::delete('/autorizacion/{id}', [AutorizacionController::class,'destroy']);
+
+
+Route::get('reparacion/{id}',[ReparacionController::class,'reparaciones']);
 
 
 

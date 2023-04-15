@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reparacion;
+use App\Models\Proyecto;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 /**
  * Class ReparacionController
  * @package App\Http\Controllers
@@ -18,7 +21,9 @@ class ReparacionController extends Controller
      */
     public function index()
     {
-        return view('seguimientos.subir');
+        $dd = 1; 
+        return view('seguimientos.subir')->with('dd',$dd);
+        //return view('seguimientos.subir');
     }
 
 
@@ -49,11 +54,14 @@ class ReparacionController extends Controller
         foreach ($request->all() as $key => $file) {
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
-                $filename = $file->getClientOriginalName();
+                $filename = "reparacion_".date("y-m-d_H_i_s")."." . $file->getClientOriginalExtension();
+                //$filename = $file->getClientOriginalName();
+                $rutaArchivo = $file->storeAs('public/reparaciones', $filename);
+
                 $ruta = new Reparacion();
                 $ruta->image = $filename;
                 $ruta->proyecto_id = $datos;
-                $file->move(public_path('img'), $filename);
+                //$file->move(public_path('img'), $filename);
                 $ruta->save();
              
                 return response()->json(['message' => 'Imágenes guardadas correctamente']);
@@ -108,5 +116,28 @@ class ReparacionController extends Controller
     public function destroy($id)
     {
       
+    }
+
+
+    public function reparaciones($id)
+    {
+        $proyecto = Proyecto::findOrFail($id);
+        return $proyecto->reparaciones;
+    }
+
+    public function getImage( Request $request, $fileName)
+    {
+        $path = storage_path('app/public/reparaciones/'. $fileName);
+        if (!File::exists($path)) {
+            return response()->json(['message' => 'Imagen no encontrada'], 404);
+        }
+    
+        $file = File::get($path);
+        $type = File::mimeType($path);
+    
+        $response = response($file, 200);
+        $response->header('Content-Type', $type);
+    
+        return $response;
     }
 }
