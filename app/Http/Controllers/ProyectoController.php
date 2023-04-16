@@ -111,51 +111,6 @@ class ProyectoController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Proyecto $proyecto)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Proyecto $proyecto)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Proyecto $proyecto)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Proyecto $proyecto)
-    {
-        //
-    }
-
 
 
     public function getFolio(Request $request)
@@ -198,13 +153,22 @@ class ProyectoController extends Controller
             case 4:
                 return view('seguimientos.subir', compact('proyecto'));
                 break;
-            
+            case 5:
+                return view('seguimientos.proyectoFinalizado', compact('proyecto'));
+                break;
             default:
                 # code...
                 break;
         }
         
-        return view('tecnico.etapa.diagnostico', compact('proyecto'));
+        //return view('tecnico.etapa.diagnostico', compact('proyecto'));
+    }
+    public function clienteVerProyecto(Request $request)
+    {
+        $idProyecto = $request->input('id_p');
+        $proyecto = Proyecto::findOrFail($idProyecto);
+        return view('seguimientos.proyectoFinalizado', compact('proyecto'));
+        
     }
 
 
@@ -264,6 +228,35 @@ class ProyectoController extends Controller
         $id = $request->id;
         $proyecto = Proyecto::findOrFail($id);
         return $proyecto;
+    }
+
+    public function verFinProyecto($id)
+    {
+        //$id = $request->id;
+        $proyecto = Proyecto::findOrfail($id);
+        $trabajador = $proyecto->trabajador->user->name;
+        $cliente = $proyecto->cliente->user->name;
+        $proyecto = Proyecto::findOrfail($id);
+        $proyecto->hallazgos;
+        $proyecto->diagnosticos;
+        $proyecto->equipo;
+
+        $costo = DB::table('diagnosticos')
+            ->join('diagnostico_proyecto', 'diagnosticos.id', '=', 'diagnostico_proyecto.diagnostico_id')
+            
+            ->select('diagnosticos.nombre', 'diagnosticos.costo')
+            ->where('diagnostico_proyecto.proyecto_id', $id)
+            ->sum('diagnosticos.costo');
+        
+        $data = [
+            'proyecto' => $proyecto,
+            'trabajador' => $trabajador,
+            'cliente' => $cliente,
+            'costo' => $costo,
+            'fecha' => date('Y-m-d')
+        ];
+
+        return $data;
     }
 }
 

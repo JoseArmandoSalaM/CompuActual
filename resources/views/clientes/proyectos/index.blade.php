@@ -28,10 +28,14 @@
                         
                         <td>{{$proyecto->etapa->Nombre}}</td>
                         <td>
-                            <button class="btn btn-secondary">
-                            <i class="fa fa-eye" aria-hidden="true"></i>   
-                            </button>
+                        <form action="{{ url('/cliente/ver-proyecto') }}"  method="post">
+                        @csrf
+                                <input type="hidden" name="id_p" value="{{  $proyecto->id }}">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> 
+                                </button>
                             &nbsp;
+                        </form>
                             
                         </td>
                         <td>

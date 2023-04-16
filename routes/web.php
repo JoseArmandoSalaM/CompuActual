@@ -37,22 +37,22 @@ Route::resource('user', UserController::class)->only('index','edit','update');
 
 Route::resource('seguimientos',SeguimientoController::class);
 
-//Para los proyectos
-Route::get('/proyecto/mis-proyectos', [ProyectoController::class, 'mis_proyectos'])->name('mis_proyectos');
+//----Para los proyectos
+//la ruta "mis_proyectos redirecciona a una vista diferente, deendiendo si eres un cliente o un trabajador 
+Route::get('/proyecto/mis-proyectos', [ProyectoController::class, 'mis_proyectos'])->name('mis_proyectos'); //para cliente y trabajador
+
 Route::get('/proyecto/folio', [ProyectoController::class, 'getFolio']);
 Route::get('/proyecto/diagnostico', [ProyectoController::class, 'diagnostico']);
-
+//Esta ruta define a que vista ir dependiedo en que etapa de encuetre 
 Route::post('/proyecto/etapa', [ProyectoController::class, 'irEtapa'])->name('definirEtapa');
-
+//Esta ruta cambia de etapa a cada proyecto
 Route::post('/proyecto/cambiarEtapa', [ProyectoController::class, 'cambiarEtapa']);
-
 Route::resource('/proyecto',ProyectoController::class);
-
-
-
 //-- fin proyectos
 
+//Rutas del cliente aqui ve los diagnosticos y autoriza 
 Route::post('/cliente/autorizar', [ProyectoController::class, 'autorizacion']);
+Route::post('/cliente/ver-proyecto', [ProyectoController::class, 'clienteVerProyecto']);
 
 
 
@@ -63,7 +63,7 @@ Route::resource('reparacion',App\Http\Controllers\ReparacionController::class);
 
 
 // Para Crud de clientes
+//ls dos rutas siguentes se ocupan en la vista de crear un nuevo proyecto
 Route::get('/cliente/listado/{cliente}', [ClienteController::class, 'filtrar_cliente']);  
 Route::get('/cliente/listado/', [ClienteController::class, 'lista_clientes']);  
-
 Route::resource('/cliente',ClienteController::class);

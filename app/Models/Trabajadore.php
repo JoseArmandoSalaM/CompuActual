@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Trabajadore extends Model
 {
     use HasFactory;
-    public function users()
+    public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
 

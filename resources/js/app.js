@@ -15,10 +15,13 @@ import image from "./components/imagen.vue";
 import ProyectoNew from './components/ProyectoNew.vue';
 import Diagnostico from './components/Diagnostico.vue';
 import Autorizar from './components/Autorizar.vue';
+import ProyectoFin from './components/ProyectoFin.vue';
 
 app.component('diagnostico', Diagnostico);
 app.component('autorizar', Autorizar);
 app.component('example-component', ProyectoNew);
+app.component('fin-proyecto', ProyectoFin);
+
 //--------
 
 //app.component('progress-vue', Progress);

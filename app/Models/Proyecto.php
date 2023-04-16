@@ -71,7 +71,7 @@ class Proyecto extends Model
     public function trabajador()
     {
        // return $this->hasMany(User::class,'id');
-        return $this->belongsTo(Trabajador::class);
+        return $this->belongsTo(Trabajadore::class);
     }
 /*
     public function etapa()

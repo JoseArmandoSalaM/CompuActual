@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Para ver el proyecto
 Route::get('/proyecto/{id}', [ProyectoController::class,'verProyecto']);
+Route::get('/proyecto/fin/{id}', [ProyectoController::class,'verFinProyecto']);
 Route::post('/proyecto/cambiarEtapa', [ProyectoController::class, 'cambiarEtapaApi']);
 
 
