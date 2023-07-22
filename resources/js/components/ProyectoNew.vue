@@ -249,6 +249,7 @@ export default {
         cargar() {
             axios.get('/cliente/listado').then(res => {
                 this.clientes = res.data;
+                console.log(res.data);
             })
 
             axios.get('/proyecto/folio')

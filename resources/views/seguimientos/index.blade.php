@@ -17,7 +17,7 @@ Seguimiento
         </div>
         </div>
         <div class="order-status">
-            <h1 style="display: flex; justify-content: center; align-items: center;">Modulo 4. Autorización</h1>
+            <h1 style="display: flex; justify-content: center; align-items: center;">Modulo 3. Autorización</h1>
             <div id="app">
                 <auto :valor="2"></auto>
                 <div style="display: flex; justify-content: center; align-items: center; margin: 15px;">

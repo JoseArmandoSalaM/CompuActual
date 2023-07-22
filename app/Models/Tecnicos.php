@@ -10,9 +10,9 @@ class Cliente extends Model
 {
     use HasFactory;
 
+
     protected $encryptable = [
         'direccion',
-       // 'user_id',
         'telefono',
     ];
 
@@ -35,7 +35,6 @@ class Cliente extends Model
             return $value;
         }
     }
-
 
     public function user()
     {

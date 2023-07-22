@@ -21,7 +21,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('login') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -43,22 +43,23 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar sesion') }}</a>
                                 </li>
                             @endif
                         @else
 
-                        @can('tecnico.proyectos.index')
+                        @can('admin.proyectos.destroy')
                           <a href="{{route('proyecto.index')}}" class="nav-link active" aria-current="page">Proyectos</a>
                           <a href="{{route('cliente.index')}}" class="nav-link active" aria-current="page">Clientes</a>
-                          <a href="{{route('equipos.index')}}" class="nav-link active" aria-current="page">Equipos</a>                        @endcan
+                          <a href="{{route('tecnicos.index')}}" class="nav-link active" aria-current="page">Tecnicos</a>
+                        @endcan
+                        @can('user.proyectos')
+                          <a href="{{route('mis_proyectos')}}" class="nav-link active" aria-current="page">Mis Proyectos</a>
+                        @endcan
+                        @can('tecnico.proyectos')
+                          <a href="{{route('proyecto.index')}}" class="nav-link active" aria-current="page">Proyectos</a>
+                          <a href="{{route('cliente.index')}}" class="nav-link active" aria-current="page">Clientes</a>
+                           @endcan
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

@@ -45,9 +45,15 @@ class ProyectoController extends Controller
         print_r($cliente->name); die;*/
             return view('tecnico.misProyectos', compact('proyectos'));
         }else{
-            $proyectos = $user->cliente->proyectos;
-            //return $proyectos;
-            return view('clientes.proyectos.index', compact('proyectos'));
+            if ($user->cliente != '') {
+                $proyectos = $user->cliente->proyectos;
+                //return $proyectos;
+                return view('clientes.proyectos.index', compact('proyectos'));
+            } else {
+                $proyectos = null;
+                return view('clientes.proyectos.index', compact('proyectos'));
+            }
+           
         }
        
     }
@@ -188,6 +194,7 @@ class ProyectoController extends Controller
     public function verCaracteristicas(Request $request, $idPryecto)
     {
         $equipo = Proyecto::findOrFail($idPryecto)->equipo;
+
         return $equipo;
     }
 

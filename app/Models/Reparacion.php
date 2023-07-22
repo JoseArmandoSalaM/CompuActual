@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +20,31 @@ class Reparacion extends Model
     
     static $rules = [
     ];
+
+    // protected $encryptable = [
+    //     'image',
+    // ];
+
+    
+    // public function setAttribute($key, $value)
+    // {
+    //     if (in_array($key, $this->encryptable)) {
+    //         $this->attributes[$key] = Crypt::encryptString($value);
+    //     } else {
+    //         $this->attributes[$key] = $value;
+    //     }
+    // }
+
+    // public function getAttribute($key)
+    // {
+    //     $value = parent::getAttribute($key);
+    //     if (in_array($key, $this->encryptable)) {
+    //         return Crypt::decryptString($value);
+    //     } else {
+    //         return $value;
+    //     }
+    // }
+
 
     protected $perPage = 20;
 

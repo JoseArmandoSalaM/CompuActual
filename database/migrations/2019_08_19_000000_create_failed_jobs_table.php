@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->unique();
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
+            $table->binary('uuid')->unique();
+            $table->binary('connection');
+            $table->binary('queue');
+            $table->binary('payload');
+            $table->binary('exception');
             $table->timestamp('failed_at')->useCurrent();
         });
     }

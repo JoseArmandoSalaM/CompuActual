@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class HomeController extends Controller
 {
@@ -22,7 +24,14 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    { 
+            if (auth()->user()->hasRole('Usuario')) {
+                return redirect()->route('mis_proyectos');
+            } elseif (auth()->user()->hasRole('Tecnico')) {
+                return view('tecnico.index');
+            }else {
+                return view('tecnico.index');
+            
+        }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 /**
  * Class Proyecto
@@ -23,14 +24,37 @@ use Illuminate\Database\Eloquent\Model;
 class Proyecto extends Model
 {
     
-    static $rules = [
-		'folio' => 'required',
-		'CostoFinal' => 'required',
-		'CostoAprox' => 'required',
-		'FechaRecibido' => 'required',
-		'FechaEntregado' => 'required',
-		'DineroAcuenta' => 'required',
-    ];
+
+    // protected $encryptable = [
+    //     'folio',
+    //     'costo_final',
+    //     'costo_aprox',
+    //     'dinero_acuenta',
+    //     'fecha_recibido',
+    //     'fecha_entregado',
+    //     'descripcion_problema',
+    //     'tipo_servicio',
+    // ];
+
+    
+    // public function setAttribute($key, $value)
+    // {
+    //     if (in_array($key, $this->encryptable)) {
+    //         $this->attributes[$key] = Crypt::encryptString($value);
+    //     } else {
+    //         $this->attributes[$key] = $value;
+    //     }
+    // }
+
+    // public function getAttribute($key)
+    // {
+    //     $value = parent::getAttribute($key);
+    //     if (in_array($key, $this->encryptable)) {
+    //         return Crypt::decryptString($value);
+    //     } else {
+    //         return $value;
+    //     }
+    // }
 
     protected $perPage = 20;
 
@@ -39,8 +63,7 @@ class Proyecto extends Model
      *
      * @var array
      */
-    protected $fillable = ['folio','CostoFinal','CostoAprox','FechaRecibido','FechaEntregado','DineroAcuenta'];
-
+   
     public function etapa()
     {
        // return $this->hasMany(User::class,'id');

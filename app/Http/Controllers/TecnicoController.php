@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Trabajadore;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Crypt;
 
-class ClienteController extends Controller
+
+class TecnicoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,9 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::all();
-        return view('clientes.index', compact('clientes'));
+        $clientes = Trabajadore::all();
+        
+        return view('tecnicos.index', compact('clientes'));
     }
 
     /**
@@ -31,7 +32,7 @@ class ClienteController extends Controller
     {
         $roles = Role::all();
 
-        return view('clientes.create',compact('roles'));
+        return view('tecnicos.create',compact('roles'));
     }
 
     /**
@@ -43,19 +44,25 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $cliente = new Cliente();
+        $cliente = new Trabajadore();
         //Para la tabla  Users
         $user->name = $request->input('nombre');
         $user->email = $request->input('usuario');
         $user->password = bcrypt($request->input('contraseña'));
+        
         $role = Role::findByName($request['role']);
         $user->assignRole($role);
+
         $user->save();
         //Para la tabla Clientes
         $cliente->telefono = $request->input('tel_1');
         $cliente->direccion = $request->input('direccion');
         $user->cliente()->save($cliente);
-        return redirect('cliente')->with('mensaje',"Cliente agregado");
+
+
+
+
+        return redirect('tecnicos')->with('mensaje',"Cliente agregado");
     }
 
     /**
@@ -64,7 +71,7 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(Trabajadore $cliente)
     {
         
     }
@@ -77,11 +84,10 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $cliente = Trabajadore::findOrFail($id);
         $roles = Role::all();
- 
 
-        return view('clientes.edit',compact('cliente'),compact('roles')); 
+        return view('tecnicos.edit',compact('cliente'),compact('roles')); 
     }
 
     /**
@@ -94,7 +100,7 @@ class ClienteController extends Controller
     public function update(Request $request,$id)
     {
        // $user = new User();
-        $cliente = Cliente::FindOrFail($id);
+        $cliente = Trabajadore::FindOrFail($id);
 
         $cliente->telefono = $request->input('tel_1');
         $cliente->direccion = $request->input('direccion');
@@ -119,7 +125,7 @@ class ClienteController extends Controller
         $cliente->direccion = $request->input('direccion');
         $user->cliente()->save($cliente);
         */
-        return redirect('cliente')->with('mensaje',"Cliente agregado");   
+        return redirect('tecnicos')->with('mensaje',"Cliente agregado");   
     }
 
     /**
@@ -128,51 +134,10 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Trabajadore $cliente)
     {
         //
     }
 
 
-    public function lista_clientes(Request $request)
-    {   
-        if($request->ajax()){
-            $clientes = DB::table('clientes')
-                ->join('users', 'clientes.user_id', '=', 'users.id')
-                ->select('clientes.id', 'users.name')
-                ->take(3)
-                ->get();
-           // dd($clientes); die;
-          for ($i=0; $i < count($clientes); $i++) { 
-            $clientes[$i] = ['id'=>$clientes[$i]->id,'name'=>Crypt::decryptString($clientes[$i]->name)];
-          }
-          return $clientes;
-          
-           
-        }else {
-            return view('clientes.index');
-        }
-    }   
-
-    public function filtrar_cliente(Request $request, $cliente)
-    {
-        if($request->ajax()){
-            //var_dump($request->route('cliente'));die;
-            $cliente = str_replace(['{', '}'], '', $request->route()->parameter('cliente'));
-            $clientes = DB::table('clientes')
-                ->join('users', 'clientes.user_id', '=', 'users.id')
-                ->select('clientes.id', 'users.name')
-                ->where('users.name','LIKE','%'.$cliente.'%')
-                ->limit(3)
-                ->get();
-           // dd($clientes); die;
-           for ($i=0; $i < count($clientes); $i++) { 
-            $clientes[$i] = ['id'=>$clientes[$i]->id,'name'=>Crypt::decryptString($clientes[$i]->name)];
-          }
-            return $clientes;
-        }else {
-            return view('clientes.index');
-        }
-        
-    }
 }

@@ -44,17 +44,18 @@
             value="{{ isset($cliente->telefono)?$cliente->telefono:old('tel_1') }}">
         </div>
     </div>
+ 
     <div class="row mb-3">    
                         <label class="col-md-4 col-form-label text-md-end" for="role">Role</label>
                         <div class="col-md-6">
                         <select id="role" class="form-control" name="role">
                             @foreach($roles as $role)
-                                @if($role->id == 3)
+                                @if($role->id == 2)
                                 <option value="{{ $role->name }}">{{ $role->name }}</option>
                                 @endif
                             @endforeach
                         </select>
                         </div>  
                         </div>  
-    
+                       
 <button type="submit" class="btn btn-primary mt-2" >{{ $modo }}</button>

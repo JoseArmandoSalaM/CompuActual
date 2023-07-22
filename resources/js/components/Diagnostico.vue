@@ -534,7 +534,7 @@ export default {
                     this.equipo.nombre = res.data.nombre;
                     this.equipo.id = res.data.id;
 
-                    //console.log(res.data)
+                    console.log(res.data)
                 })
         },
         guardarCaracteristicas() {

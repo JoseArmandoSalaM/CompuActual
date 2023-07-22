@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+
+
     <div class="row">
         
         <div class="col-md-12">
@@ -21,6 +23,7 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @if($proyectos != null)
                         @foreach($proyectos as $proyecto)
                       <tr>
                         
@@ -49,11 +52,17 @@
                        
                         </td>
                       </tr>
+                     
+
                       @endforeach
                     </tbody>
+                    @else:
+                      <h4>Aun no cuentas con autorizaciones de proyectos</h4>
+                      <br>
+                      @endif
                   </table>
                             
             </div>
     </div>
-
+  
 @endsection
