@@ -272,7 +272,6 @@ export default {
         cargarItem() {
             axios.get('/api/autorizacion/' + this.proyecto_id)
                 .then(res => {
-                    //console.log(res.data.total);
                     this.list_item = res.data.diagnosticos
                     this.costo_final = Number(res.data.total).toLocaleString("en", {
                         style: "currency",
@@ -285,7 +284,7 @@ export default {
         agregarCarrito(diagnostico_id) {
             let proyecto_id = this.proyecto_id;
             let add = { proyecto_id, diagnostico_id }
-            axios.post('/api/autorizacion/', add)
+            axios.post('/api/autorizacion', add)
                 .then(res => {
                     this.cargarItem()
                     console.log(res);

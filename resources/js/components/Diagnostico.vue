@@ -534,7 +534,7 @@ export default {
                     this.equipo.nombre = res.data.nombre;
                     this.equipo.id = res.data.id;
 
-                    console.log(res.data)
+                    //console.log(res.data)
                 })
         },
         guardarCaracteristicas() {
@@ -565,6 +565,7 @@ export default {
                     nombre: this.hallazgo.nombre,
                     descripcion: this.hallazgo.descripcion,
                     tipo: this.hallazgo.tipo
+
                 }
                 if (!this.modeEdit) {
                     axios.post('/api/hallazgos/', hallazgo)

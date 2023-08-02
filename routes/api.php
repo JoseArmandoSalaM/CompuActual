@@ -43,7 +43,7 @@ Route::put('equipo/{id}',[ProyectoController::class,'caracteristicasRealesSave']
 Route::delete('hallazgos/{id}',[HallazgoController::class,'destroy']);
 Route::get('hallazgos/{proyecto}',[HallazgoController::class,'index']);
 Route::get('hallazgos/{id}/edit',[HallazgoController::class,'edit']);
-Route::post('hallazgos/',[HallazgoController::class,'store']);
+Route::match(['get', 'post'],'hallazgos/',[HallazgoController::class,'store']);
 Route::put('hallazgos/{id}',[HallazgoController::class,'update']);
 
 
