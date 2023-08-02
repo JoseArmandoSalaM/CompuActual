@@ -17,29 +17,29 @@ class User extends Authenticatable
     use HasRoles;
     use HasApiTokens, HasFactory, Notifiable;
    
-    protected $encryptable = [
-        'name',
-    ];
+    // protected $encryptable = [
+    //     'name',
+    // ];
 
     
-    public function setAttribute($key, $value)
-    {
-        if (in_array($key, $this->encryptable)) {
-            $this->attributes[$key] = Crypt::encryptString($value);
-        } else {
-            $this->attributes[$key] = $value;
-        }
-    }
+    // public function setAttribute($key, $value)
+    // {
+    //     if (in_array($key, $this->encryptable)) {
+    //         $this->attributes[$key] = Crypt::encryptString($value);
+    //     } else {
+    //         $this->attributes[$key] = $value;
+    //     }
+    // }
 
-    public function getAttribute($key)
-    {
-        $value = parent::getAttribute($key);
-        if (in_array($key, $this->encryptable)) {
-            return Crypt::decryptString($value);
-        } else {
-            return $value;
-        }
-    }
+    // public function getAttribute($key)
+    // {
+    //     $value = parent::getAttribute($key);
+    //     if (in_array($key, $this->encryptable)) {
+    //         return Crypt::decryptString($value);
+    //     } else {
+    //         return $value;
+    //     }
+    // }
 
 
     /**

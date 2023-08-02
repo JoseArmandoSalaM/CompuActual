@@ -11,30 +11,30 @@ class Trabajadore extends Model
     use HasFactory;
 
 
-    protected $encryptable = [
-        'direccion',
-        'telefono',
-    ];
+    // protected $encryptable = [
+    //     'direccion',
+    //     'telefono',
+    // ];
 
     
-    public function setAttribute($key, $value)
-    {
-        if (in_array($key, $this->encryptable)) {
-            $this->attributes[$key] = Crypt::encryptString($value);
-        } else {
-            $this->attributes[$key] = $value;
-        }
-    }
+    // public function setAttribute($key, $value)
+    // {
+    //     if (in_array($key, $this->encryptable)) {
+    //         $this->attributes[$key] = Crypt::encryptString($value);
+    //     } else {
+    //         $this->attributes[$key] = $value;
+    //     }
+    // }
 
-    public function getAttribute($key)
-    {
-        $value = parent::getAttribute($key);
-        if (in_array($key, $this->encryptable)) {
-            return Crypt::decryptString($value);
-        } else {
-            return $value;
-        }
-    }
+    // public function getAttribute($key)
+    // {
+    //     $value = parent::getAttribute($key);
+    //     if (in_array($key, $this->encryptable)) {
+    //         return Crypt::decryptString($value);
+    //     } else {
+    //         return $value;
+    //     }
+    // }
 
     public function user()
     {
