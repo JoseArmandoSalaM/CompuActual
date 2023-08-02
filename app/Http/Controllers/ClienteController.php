@@ -143,9 +143,9 @@ class ClienteController extends Controller
                 ->take(3)
                 ->get();
            // dd($clientes); die;
-          for ($i=0; $i < count($clientes); $i++) { 
-            $clientes[$i] = ['id'=>$clientes[$i]->id,'name'=>Crypt::decryptString($clientes[$i]->name)];
-          }
+        //   for ($i=0; $i < count($clientes); $i++) { 
+        //     $clientes[$i] = ['id'=>$clientes[$i]->id,'name'=>Crypt::decryptString($clientes[$i]->name)];
+        //   }
           return $clientes;
           
            
