@@ -11,12 +11,15 @@ class ProyectoMovilController extends Controller
     public function show(){
 
         $user = User::find(Auth::user()->id); 
-        $proyectos = $user->cliente->proyectos;
+       // $proyectos = $user->cliente->proyectos;
 
-        return response()->json([
-            "status" => 0,
-            "msg" => "Perfil de usuario",
-            "data" => $proyectos,
-        ]);
+        return $user->cliente->proyectos;
+
+        
+        // response()->get([
+        //     "status" => 0,
+        //     "msg" => "Perfil de usuario",
+        //     "data" => $proyectos,
+        // ]);
     }
 }

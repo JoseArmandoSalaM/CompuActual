@@ -11,7 +11,7 @@ use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\AutorizacionController;
 use App\Http\Controllers\ReparacionController;
 use App\Http\Controllers\ProyectoMovilController;
-
+use App\Http\Controllers\FirebaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ use App\Http\Controllers\ProyectoMovilController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('proyectos',[ProyectoMovilController::class, 'show']);
-    Route::post('/fcm/token',[FirebaseController::class,'postTOken']);
+    Route::post('/fcm/token',[FirebaseController::class,'postToken']);
 });
 
 Route::post('login', [AuthController::class, 'login']);
