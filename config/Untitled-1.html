@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi PWA Ejemplo</title>
+    
+    <!-- Agrega los archivos CSS y JavaScript de tu aplicación aquí -->
+    
+    <!-- Agrega el archivo del Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registrado con éxito:', registration);
+                })
+                .catch(function(error) {
+                    console.log('Error al registrar el Service Worker:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Mi PWA Ejemplo</h1>
+    <p>Bienvenido a mi Progressive Web App de ejemplo.</p>
+    
+    <!-- Agrega el contenido de tu aplicación aquí -->
+
+    <!-- Agrega un botón para habilitar la instalación de la PWA -->
+    <button id="installButton" style="display:none;">Instalar PWA</button>
+
+    <script>
+        // Comprobar si la PWA puede ser instalada
+        window.addEventListener('beforeinstallprompt', function(event) {
+            // Mostrar el botón de instalación
+            document.getElementById('installButton').style.display = 'block';
+
+            // Evitar que el evento predeterminado de instalación ocurra
+            event.preventDefault();
+
+            // Al hacer clic en el botón de instalación, mostrar la ventana de instalación
+            document.getElementById('installButton').addEventListener('click', function() {
+                event.prompt();
+            });
+        });
+    </script>
+</body>
+</html>
